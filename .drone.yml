@@ -1,0 +1,45 @@
+kind: pipeline
+type: docker
+name: test-and-report
+
+# Добавляем параметр для выбора окружения
+parameters:
+  - name: namespace
+    type: string
+    default: next # значение по умолчанию
+    values: [next, edu, beta] # допустимые значения
+
+trigger:
+  event:
+    - custom
+
+steps:
+  - name: run-tests
+    image: cr.yandex/crp693tpitbsr9og94q7/pw-tests:${DRONE_COMMIT_SHA:0:7}
+    working_dir: /app
+    environment:
+      NAMESPACE: next # или next, beta и т.д.
+    commands:
+      - yarn start # Запуск тестов (playwright test)
+      - yarn posttest # Генерация Allure отчета (allure generate)
+
+    # Сохраняем папку с отчетом в workspace для следующего шага
+    volumes:
+      - name: allure-report
+        path: /app/allure-report
+
+  - name: serve-report
+    image: node:20-alpine
+    working_dir: /app/allure-report
+    commands:
+      - npm install -g http-server
+      - http-server -p 8080
+    ports:
+      - 8080
+    volumes:
+      - name: allure-report
+        path: /app/allure-report
+
+volumes:
+  - name: allure-report
+    temp: {}

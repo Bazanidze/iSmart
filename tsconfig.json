@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Целевая версия JS
+    "module": "ESNext", // Модульная система (ES модули)
+    "moduleResolution": "Node", // Разрешение модулей по стандарту Node.js
+    "strict": true, // Включить строгую проверку типов
+    "esModuleInterop": true, // Совместимость с CommonJS модулями
+    "skipLibCheck": true, // Пропуск проверки типов в библиотеках
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true, // Позволяет импортировать JSON файлы
+    "isolatedModules": true,
+    "outDir": "dist", // Папка для компилированных файлов (если нужно)
+    "types": ["node", "playwright"] // Подключаем типы для Node.js и Playwright
+  },
+  "include": ["src", "tests"], // Папки с исходниками и тестами
+  "exclude": [] // Исключаем node_modules, но в игноре сделал
+}
