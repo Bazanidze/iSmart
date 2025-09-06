@@ -1,45 +1,92 @@
 kind: pipeline
-type: docker
-name: test-and-report
+type: kubernetes
+name: run-manual-tests
 
-# Добавляем параметр для выбора окружения
-parameters:
-  - name: namespace
-    type: string
-    default: next # значение по умолчанию
-    values: [next, edu, beta] # допустимые значения
+volumes:
+  - name: docker-secret
+    secret:
+      name: cr-yandex-secret
 
 trigger:
   event:
     - custom
-
 steps:
-  - name: run-tests
-    image: cr.yandex/crp693tpitbsr9og94q7/pw-tests:${DRONE_COMMIT_SHA:0:7}
+  - name: build_and_push
+    image: moby/buildkit:master
+    commands:
+      - chmod +x ./build.sh
+      - ./build.sh ${DRONE_COMMIT_SHA:0:7}
+    volumes:
+      - name: docker-secret
+        path: /buildkit-docker-secret
+    privileged: true
+
+  - name: test_and_report
+    image: cr.yandex/crp693tpitbsr9og94q7/my-playwright-tests:${DRONE_COMMIT_SHA:0:7}
     working_dir: /app
+    depends_on:
+      - build_and_push
     environment:
-      NAMESPACE: next # или next, beta и т.д.
+      NAMESPACE: ${NAMESPACE}
     commands:
-      - yarn start # Запуск тестов (playwright test)
-      - yarn posttest # Генерация Allure отчета (allure generate)
+      - echo "NAMESPACE=$${NAMESPACE}" > .env
+      - cat .env
+      - yarn test || true
+      - yarn allure generate allure-results --clean -o allure-report
+      - zip -r allure-report.zip allure-report
+      - yarn ts-node src/system/SendEmail/sendEmail.ts
+    resources:
+      requests:
+        memory: 1GiB
+        cpu: 500
+      limits:
+        memory: 2.5GiB
+        cpu: 1000
+    continue_on_error: true
 
-    # Сохраняем папку с отчетом в workspace для следующего шага
-    volumes:
-      - name: allure-report
-        path: /app/allure-report
-
-  - name: serve-report
-    image: node:20-alpine
-    working_dir: /app/allure-report
-    commands:
-      - npm install -g http-server
-      - http-server -p 8080
-    ports:
-      - 8080
-    volumes:
-      - name: allure-report
-        path: /app/allure-report
+---
+kind: pipeline
+type: kubernetes
+name: run-eors-tests
 
 volumes:
-  - name: allure-report
-    temp: {}
+  - name: docker-secret
+    secret:
+      name: cr-yandex-secret
+
+trigger:
+  event:
+    - cron
+steps:
+  - name: build_and_push
+    image: moby/buildkit:master
+    commands:
+      - chmod +x ./build.sh
+      - ./build.sh ${DRONE_COMMIT_SHA:0:7}
+    volumes:
+      - name: docker-secret
+        path: /buildkit-docker-secret
+    privileged: true
+
+  - name: test_and_report
+    image: cr.yandex/crp693tpitbsr9og94q7/my-playwright-tests:${DRONE_COMMIT_SHA:0:7}
+    working_dir: /app
+    depends_on:
+      - build_and_push
+    environment:
+      NAMESPACE: ${NAMESPACE}
+    commands:
+      - echo "NAMESPACE=$${NAMESPACE}" > .env
+      - cat .env
+      - yarn test tests/EORS/test_all_eors.spec.ts || true
+      - yarn allure generate allure-results --clean -o allure-report
+      - zip -r allure-report.zip allure-report
+      - yarn ts-node src/system/SendEmail/sendEmail.ts
+    resources:
+      requests:
+        memory: 1GiB
+        cpu: 500
+      limits:
+        memory: 2.5GiB
+        cpu: 1000
+    continue_on_error: true

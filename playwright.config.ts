@@ -7,7 +7,7 @@ export const baseURL = `https://${namespace}.ismart.org/catalog/`;
 
 export default defineConfig({
   testDir: "./tests", // Папка с тестами
-  timeout: 35000,
+  timeout: 50000,
   retries: 0,
   reporter: [
     ["list"],

@@ -32,8 +32,16 @@ export async function userAutorization(
     await ramblerPage.ramblerPageEl.clickLogButton();
     await ramblerPage.ramblerPageEl.clickSubmitLaterButton();
     try {
+      await allure.step("Почта Рамблер: Ожидание появления модального окна Сбер ID", async () => {
+        await ramblerPage.ramblerPageEl.buttonCloseSberID.waitFor({ state: "visible", timeout: 3500 });
+      });
+      await ramblerPage.ramblerPageEl.clickButtonCloseSberID();
+    } catch (e) {
+      await allure.step("Почта Рамблер: Модальное окно Сбер ID не появилось", async () => {});
+    }
+    try {
       await allure.step("Почта Рамблер: Поиск входящих сообщений", async () => {
-        await ramblerPage.ramblerPageEl.incomingMail.first().waitFor({ state: "visible", timeout: 3500 });
+        await ramblerPage.ramblerPageEl.incomingMail.first().waitFor({ state: "visible", timeout: 500 });
       });
       await allure.step("Почта Рамблер: Удаление сообщений", async () => {
         await ramblerPage.ramblerPageEl.clickCheckBoxAllMessage();
@@ -69,10 +77,17 @@ export async function userAutorization(
     await ramblerPage.ramblerPageEl.setValuePassword(password);
     await ramblerPage.ramblerPageEl.clickLogButton();
     await ramblerPage.ramblerPageEl.clickSubmitLaterButton();
-
+    try {
+      await allure.step("Почта Рамблер: Ожидание появления модального окна Сбер ID", async () => {
+        await ramblerPage.ramblerPageEl.buttonCloseSberID.waitFor({ state: "visible", timeout: 3500 });
+      });
+      await ramblerPage.ramblerPageEl.clickButtonCloseSberID();
+    } catch (e) {
+      await allure.step("Почта Рамблер: Модальное окно Сбер ID не появилось", async () => {});
+    }
     try {
       await allure.step("Почта Рамблер: Поиск входящих сообщений", async () => {
-        await ramblerPage.ramblerPageEl.incomingMail.first().waitFor({ state: "visible", timeout: 3500 });
+        await ramblerPage.ramblerPageEl.incomingMail.first().waitFor({ state: "visible", timeout: 500 });
       });
       await allure.step("Почта Рамблер: Удаление сообщений", async () => {
         await ramblerPage.ramblerPageEl.clickCheckBoxAllMessage();

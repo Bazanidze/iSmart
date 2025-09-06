@@ -12,6 +12,7 @@ export class RamblerEl {
   readonly deleteEmail: Locator;
   readonly linkUrl: Locator;
   readonly checkBoxAllMessage: Locator;
+  readonly buttonCloseSberID: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -24,6 +25,13 @@ export class RamblerEl {
     this.deleteEmail = page.locator("(//div[@class='ToolbarButton-root-1B'])[1]"); // Удаление письма
     this.linkUrl = page.locator("//a[contains(text(), 'ссылке')]"); // Ссылка в письме
     this.checkBoxAllMessage = page.locator("//div[@class='MailListCheckMenu-flex-Bj']/span"); // Чекбокс для выбора всех писем
+    this.buttonCloseSberID = page.locator("div.styles-close-33"); // Кнопка "Закрыть", всплывающее окно Сбер ID
+  }
+
+  async clickButtonCloseSberID() {
+    await allure.step("Почта Рамблер: Клик 'Закрыть', всплывающее окно Сбер ID", async () => {
+      await this.buttonCloseSberID.click();
+    });
   }
 
   async clickLogButton() {

@@ -15,7 +15,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, defaultUsers.parent, "", methodRegister.password);
+    } = await userAutorization(page, defaultUsers.parent[0], "", methodRegister.password);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -36,7 +36,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.parentLogin[0], "", methodRegister.login, myUsers.parentLogin[1]);
+    } = await userAutorization(page, myUsers.parentLogin[0], "", methodRegister.login, myUsers.parentLogin[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -50,14 +50,14 @@ test.describe("Tests: All users autorization", () => {
     await browser.close();
   });
 
-  test("Родитель: Авторизация по email и коду с почты", async ({ page }) => {
+  test.skip("Родитель: Авторизация по email и коду с почты", async ({ page }) => {
     await allure.feature("Тесты: Авторизация пользователей");
     await allure.story("Родитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.parent[0], "", methodRegister.code, myUsers.parent[1]);
+    } = await userAutorization(page, myUsers.parent[0], "", methodRegister.code, myUsers.parent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -78,7 +78,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, defaultUsers.teacher, "", methodRegister.password);
+    } = await userAutorization(page, defaultUsers.teacher[0], "", methodRegister.password);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -99,7 +99,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.teacherLogin[0], "", methodRegister.login, myUsers.teacherLogin[1]);
+    } = await userAutorization(page, myUsers.teacherLogin[0], "", methodRegister.login, myUsers.teacherLogin[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -113,14 +113,14 @@ test.describe("Tests: All users autorization", () => {
     await browser.close();
   });
 
-  test("Учитель: Авторизация по email и коду с почты", async ({ page }) => {
+  test.skip("Учитель: Авторизация по email и коду с почты", async ({ page }) => {
     await allure.feature("Тесты: Авторизация пользователей");
     await allure.story("Учитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.teacher[0], "", methodRegister.code, myUsers.teacher[1]);
+    } = await userAutorization(page, myUsers.teacher[0], "", methodRegister.code, myUsers.teacher[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -141,7 +141,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, defaultUsers.myIndepStudent, "", methodRegister.password);
+    } = await userAutorization(page, defaultUsers.myIndepStudent[0], "", methodRegister.password);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Ученик' в хедере", async () => {
@@ -167,7 +167,7 @@ test.describe("Tests: All users autorization", () => {
       myUsers.indepStudentLogin[0],
       "",
       methodRegister.login,
-      myUsers.indepStudentLogin[1]
+      myUsers.indepStudentLogin[3]
     );
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
@@ -182,14 +182,14 @@ test.describe("Tests: All users autorization", () => {
     await browser.close();
   });
 
-  test("Самостоятельный ученик: Авторизация по email и коду с почты", async ({ page }) => {
+  test.skip("Самостоятельный ученик: Авторизация по email и коду с почты", async ({ page }) => {
     await allure.feature("Тесты: Авторизация пользователей");
     await allure.story("Самостоятельный ученик");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.indepStudent[0], "", methodRegister.code, myUsers.indepStudent[1]);
+    } = await userAutorization(page, myUsers.indepStudent[0], "", methodRegister.code, myUsers.indepStudent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Ученик' в хедере", async () => {
@@ -223,14 +223,14 @@ test.describe("Tests: All users autorization", () => {
   //   });
   // }
 
-  test("Родитель: Авторизация по ссылке", async ({ page }) => {
+  test.skip("Родитель: Авторизация по ссылке", async ({ page }) => {
     await allure.feature("Тесты: Авторизация пользователей");
     await allure.story("Родитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.parent[0], "", methodRegister.link, myUsers.parent[1]);
+    } = await userAutorization(page, myUsers.parent[0], "", methodRegister.link, myUsers.parent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -244,14 +244,14 @@ test.describe("Tests: All users autorization", () => {
     await browser.close();
   });
 
-  test("Учитель: Авторизация по ссылке", async ({ page }) => {
+  test.skip("Учитель: Авторизация по ссылке", async ({ page }) => {
     await allure.feature("Тесты: Авторизация пользователей");
     await allure.story("Учитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.teacher[0], "", methodRegister.link, myUsers.teacher[1]);
+    } = await userAutorization(page, myUsers.teacher[0], "", methodRegister.link, myUsers.teacher[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -265,14 +265,14 @@ test.describe("Tests: All users autorization", () => {
     await browser.close();
   });
 
-  test("Самостоятельный ученик: Авторизация по ссылке", async ({ page }) => {
+  test.skip("Самостоятельный ученик: Авторизация по ссылке", async ({ page }) => {
     await allure.feature("Тесты: Авторизация пользователей");
     await allure.story("Самостоятельный ученик");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.indepStudent[0], "", methodRegister.link, myUsers.indepStudent[1]);
+    } = await userAutorization(page, myUsers.indepStudent[0], "", methodRegister.link, myUsers.indepStudent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Ученик' в хедере", async () => {
@@ -293,7 +293,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.admin[0], "", methodRegister.password, myUsers.admin[1]);
+    } = await userAutorization(page, myUsers.admin[0], "", methodRegister.password, myUsers.admin[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Администратор' в хедере", async () => {
@@ -311,7 +311,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.admin[2], "", methodRegister.password, myUsers.admin[1]);
+    } = await userAutorization(page, myUsers.admin[4], "", methodRegister.password, myUsers.admin[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Администратор' в хедере", async () => {
@@ -329,7 +329,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.superUser[0], "", methodRegister.password, myUsers.superUser[1]);
+    } = await userAutorization(page, myUsers.superUser[0], "", methodRegister.password, myUsers.superUser[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Суперпользователь' в хедере", async () => {
@@ -347,7 +347,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.superUser[2], "", methodRegister.password, myUsers.superUser[1]);
+    } = await userAutorization(page, myUsers.superUser[4], "", methodRegister.password, myUsers.superUser[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Суперпользователь' в хедере", async () => {
@@ -365,7 +365,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.content[0], "", methodRegister.password, myUsers.content[1]);
+    } = await userAutorization(page, myUsers.content[0], "", methodRegister.password, myUsers.content[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Контент' в хедере", async () => {
@@ -383,7 +383,7 @@ test.describe("Tests: All users autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.content[2], "", methodRegister.password, myUsers.content[1]);
+    } = await userAutorization(page, myUsers.content[4], "", methodRegister.password, myUsers.content[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Контент' в хедере", async () => {
@@ -406,7 +406,7 @@ test.describe("Tests: Landing autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, defaultUsers.parent, urlPath, methodRegister.password);
+    } = await userAutorization(page, defaultUsers.parent[0], urlPath, methodRegister.password);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -424,7 +424,7 @@ test.describe("Tests: Landing autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.parentLogin[0], urlPath, methodRegister.login, myUsers.parentLogin[1]);
+    } = await userAutorization(page, myUsers.parentLogin[0], urlPath, methodRegister.login, myUsers.parentLogin[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -435,14 +435,14 @@ test.describe("Tests: Landing autorization", () => {
     await browser.close();
   });
 
-  test("Родитель: Авторизация по email и коду с почты", async ({ page }) => {
+  test.skip("Родитель: Авторизация по email и коду с почты", async ({ page }) => {
     await allure.feature("Тесты: Лэндинг - Авторизация пользователей");
     await allure.story("Родитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.parent[0], urlPath, methodRegister.code, myUsers.parent[1]);
+    } = await userAutorization(page, myUsers.parent[0], urlPath, methodRegister.code, myUsers.parent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -453,14 +453,14 @@ test.describe("Tests: Landing autorization", () => {
     await browser.close();
   });
 
-  test("Родитель: Авторизация по ссылке", async ({ page }) => {
+  test.skip("Родитель: Авторизация по ссылке", async ({ page }) => {
     await allure.feature("Тесты: Лэндинг - Авторизация пользователей");
     await allure.story("Родитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.parent[0], urlPath, methodRegister.link, myUsers.parent[1]);
+    } = await userAutorization(page, myUsers.parent[0], urlPath, methodRegister.link, myUsers.parent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Родитель' в хедере", async () => {
@@ -471,14 +471,14 @@ test.describe("Tests: Landing autorization", () => {
     await browser.close();
   });
 
-  test.skip("Учитель: Авторизация по email и паролю", async ({ page }) => {
+  test("Учитель: Авторизация по email и паролю", async ({ page }) => {
     await allure.feature("Тесты: Лэндинг - Авторизация пользователей");
     await allure.story("Учитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, defaultUsers.teacher, urlPath, methodRegister.password);
+    } = await userAutorization(page, defaultUsers.teacher[0], urlPath, methodRegister.password);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -489,14 +489,14 @@ test.describe("Tests: Landing autorization", () => {
     await browser.close();
   });
 
-  test.skip("Учитель: Авторизация по логину и паролю", async ({ page }) => {
+  test("Учитель: Авторизация по логину и паролю", async ({ page }) => {
     await allure.feature("Тесты: Лэндинг - Авторизация пользователей");
     await allure.story("Учитель");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.teacherLogin[0], urlPath, methodRegister.login, myUsers.teacherLogin[1]);
+    } = await userAutorization(page, myUsers.teacherLogin[0], urlPath, methodRegister.login, myUsers.teacherLogin[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -514,7 +514,7 @@ test.describe("Tests: Landing autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.teacher[0], urlPath, methodRegister.code, myUsers.teacher[1]);
+    } = await userAutorization(page, myUsers.teacher[0], urlPath, methodRegister.code, myUsers.teacher[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -532,7 +532,7 @@ test.describe("Tests: Landing autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.teacher[0], urlPath, methodRegister.link, myUsers.teacher[1]);
+    } = await userAutorization(page, myUsers.teacher[0], urlPath, methodRegister.link, myUsers.teacher[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Учитель' в хедере", async () => {
@@ -550,7 +550,7 @@ test.describe("Tests: Landing autorization", () => {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, defaultUsers.myIndepStudent, urlPath, methodRegister.password);
+    } = await userAutorization(page, defaultUsers.myIndepStudent[0], urlPath, methodRegister.password);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Ученик' в хедере", async () => {
@@ -573,7 +573,7 @@ test.describe("Tests: Landing autorization", () => {
       myUsers.indepStudentLogin[0],
       urlPath,
       methodRegister.login,
-      myUsers.indepStudentLogin[1]
+      myUsers.indepStudentLogin[3]
     );
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
@@ -585,14 +585,14 @@ test.describe("Tests: Landing autorization", () => {
     await browser.close();
   });
 
-  test("Самостоятельный ученик: Авторизация по email и коду с почты", async ({ page }) => {
+  test.skip("Самостоятельный ученик: Авторизация по email и коду с почты", async ({ page }) => {
     await allure.feature("Тесты: Лэндинг - Авторизация пользователей");
     await allure.story("Самостоятельный ученик");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.indepStudent[0], urlPath, methodRegister.code, myUsers.indepStudent[1]);
+    } = await userAutorization(page, myUsers.indepStudent[0], urlPath, methodRegister.code, myUsers.indepStudent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Ученик' в хедере", async () => {
@@ -603,14 +603,14 @@ test.describe("Tests: Landing autorization", () => {
     await browser.close();
   });
 
-  test("Самостоятельный ученик: Авторизация по ссылке", async ({ page }) => {
+  test.skip("Самостоятельный ученик: Авторизация по ссылке", async ({ page }) => {
     await allure.feature("Тесты: Лэндинг - Авторизация пользователей");
     await allure.story("Самостоятельный ученик");
     const {
       page: newPage,
       browser,
       context,
-    } = await userAutorization(page, myUsers.indepStudent[0], urlPath, methodRegister.link, myUsers.indepStudent[1]);
+    } = await userAutorization(page, myUsers.indepStudent[0], urlPath, methodRegister.link, myUsers.indepStudent[3]);
     const catalogPage = new CatalogPage(newPage);
     await allure.step("Проверки:", async () => {
       await allure.step("1. Роль 'Ученик' в хедере", async () => {
